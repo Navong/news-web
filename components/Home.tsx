@@ -1,24 +1,22 @@
-// @typescript-eslint/no-explicit-any
+// app/page.tsx
 import { Suspense } from 'react';
 import PaginatedNewsList from '@/components/PaginatedNewsList';
-import { fetchNews } from '../../lib/fetchNews';
+import { fetchNews } from '../lib/fetchNews';
 import Header from '@/components/Header';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import { Article } from '@/type/article';
 
-export const revalidate = 60; // Revalidate every 60 seconds
+
+export const revalidate = 60;
+
 const ITEMS_PER_PAGE = 9;
 
-export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
-    const data = await params;
-    const newsPromise = fetchNews(data.category); // Fetch news data
+export default async function Home() {
+    const newsPromise = fetchNews('general');
 
     return (
         <main className="p-6">
-            {/* Render the header immediately */}
-            <Header category={data.category} />
-
-            {/* Render the PaginatedNewsList with a loading fallback */}
+            <Header category={"Top Headlines"} />
             <Suspense fallback={<SkeletonLoader />}>
                 {/* Wrap PaginatedNewsList in a dynamic wrapper to allow client-side rendering */}
                 <PaginatedNewsWrapper newsPromise={newsPromise} />
@@ -28,10 +26,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 }
 
 // Client-side wrapper for PaginatedNewsList
-
 type NewsPromise = Promise<{ articles: Article[] }>;
 
-async function PaginatedNewsWrapper({ newsPromise }: { newsPromise: Promise<NewsPromise> }) {
+async function PaginatedNewsWrapper({ newsPromise }: { newsPromise: NewsPromise }) {
     const news = await newsPromise; // Resolve the promise to fetch news
     return <PaginatedNewsList articles={news.articles} itemsPerPage={ITEMS_PER_PAGE} />;
 }
+

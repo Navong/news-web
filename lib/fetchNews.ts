@@ -1,3 +1,5 @@
+import { Article } from "@/type/article";
+
 export async function fetchNews(category: string) {
     const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY;
     const res = await fetch(
@@ -10,6 +12,6 @@ export async function fetchNews(category: string) {
 
 export async function fetchArticleById(id: string, category: string) {
     const news = await fetchNews(category);
-    const article = news.articles.find((article: any) => article.url === id);
+    const article = news.articles.find((article: Article) => article.url === id);
     return article || null;
 }

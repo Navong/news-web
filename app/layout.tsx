@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import './globals.css'
 
 export const metadata = {
@@ -18,6 +18,7 @@ export default function RootLayout({
           <div className='min-h-screen max-w-6xl mx-auto py-4'>
             {children}
           </div>
+          <Footer />
         </div>
       </body>
     </html>
