@@ -28,8 +28,10 @@ export default async function Home() {
 // Client-side wrapper for PaginatedNewsList
 type NewsPromise = Promise<{ articles: Article[] }>;
 
-async function PaginatedNewsWrapper({ newsPromise }: { newsPromise: NewsPromise }) {
+async function PaginatedNewsWrapper({ newsPromise }: { newsPromise: Promise<NewsPromise> }) {
     const news = await newsPromise; // Resolve the promise to fetch news
-    return <PaginatedNewsList articles={news.articles} itemsPerPage={ITEMS_PER_PAGE} />;
+    const filteredArticles = news.articles.filter(article => article.urlToImage !== null);
+    return <PaginatedNewsList articles={filteredArticles} itemsPerPage={ITEMS_PER_PAGE} />;
 }
+
 

@@ -1,9 +1,9 @@
 import { Article } from "@/type/article";
 
 export async function fetchNews(category: string) {
-    const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const res = await fetch(
-        `https://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}`
+        `${baseUrl}/api/news/${category}`
     );
 
     if (!res.ok) throw new Error("Failed to fetch news.");
