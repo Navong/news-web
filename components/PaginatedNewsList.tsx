@@ -79,6 +79,7 @@ export default function PaginatedNewsList({ articles, itemsPerPage }: PaginatedN
                   alt={article.title}
                   className="absolute top-0 left-0 w-full h-full object-cover rounded-t-lg"
                   unoptimized={!article.urlToImage?.includes('trusted-domain.com')}
+                  priority
                 />
               </div>
             )}

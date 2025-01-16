@@ -144,6 +144,10 @@ export default function SkeletonLoader() {
 **Problem**: Using Next.js Image component for optimization, but images not from same origin  
 **Solution**: Used `next/image` with `unoptimized={!article.urlToImage?.includes('trusted-domain.com')}` option to optimize images from external sources
 
+### Challenge 5: Mobile Responsiveness
+**Problem**: Complex layouts breaking on mobile devices  
+**Solution**: Implemented mobile-first design with Tailwind CSS breakpoints
+
 
 ## 🚧 Future Improvements
 
