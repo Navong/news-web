@@ -5,8 +5,21 @@
 [![pnpm](https://img.shields.io/badge/pnpm-7.10.0-blue?style=flat)](https://pnpm.io/)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-green?style=flat)](https://vercel.com/)
 
-
 A modern, performant news website leveraging Next.js App Router with Incremental Static Regeneration (ISR), Single Page Application (SPA) capabilities, and skeleton loading for optimal user experience.
+
+## 📑 Table of Contents
+1. [🚀 Key Features](#-key-features)
+2. [🛠️ Tech Stack](#-tech-stack)
+3. [📦 Installation](#-installation)
+4. [🔧 Core Implementation](#-core-implementation)
+    - [ISR Configuration](#isr-configuration)
+    - [Skeleton Loading](#skeleton-loading)
+5. [🔍 Key Implementation Details](#-key-implementation-details)
+6. [🎯 What I Learned and How I Solved It](#-what-i-learned-and-how-i-solved-it)
+7. [🚧 Future Improvements](#-future-improvements)
+8. [🤝 Contributing](#-contributing)
+9. [📝 License](#-license)
+10. [📬 Contact](#-contact)
 
 ## 🚀 Key Features
 
