@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface Article {
   title: string;
@@ -59,10 +60,13 @@ export default function PaginatedNewsList({ articles, itemsPerPage }: PaginatedN
             {/* Image container with aspect ratio */}
             {article.urlToImage && (
               <div className="relative w-full pt-[56.25%]">
-                <img
+                <Image
+                  width={600}
+                  height={400}
                   src={article.urlToImage}
                   alt={article.title}
                   className="absolute top-0 left-0 w-full h-full object-cover rounded-t-lg"
+                  unoptimized={!article.urlToImage?.includes('trusted-domain.com')}
                 />
               </div>
             )}

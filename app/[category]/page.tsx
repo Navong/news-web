@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import SkeletonLoader from '@/components/SkeletonLoader';
 
 export const revalidate = 60; // Revalidate every 60 seconds
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 9;
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
   const data = await params;

@@ -7,7 +7,7 @@ import SkeletonLoader from '@/components/SkeletonLoader';
 
 export const revalidate = 60;
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 9;
 
 export default async function Home() {
   const newsPromise = await fetchNews('general');

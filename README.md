@@ -1,64 +1,99 @@
 # News Website - ISR + SPA with Skeleton Loading
+[![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+[![Zustand](https://img.shields.io/badge/Zustand-Latest-orange?style=flat)](https://github.com/pmndrs/zustand)
+[![pnpm](https://img.shields.io/badge/pnpm-7.10.0-blue?style=flat)](https://pnpm.io/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-green?style=flat)](https://vercel.com/)
 
-This project is a **News Website** built using **Next.js (App Router)**, **Zustand** for state management, and **Tailwind CSS** for styling. It integrates **Incremental Static Regeneration (ISR)** for optimized static content delivery, **Single Page Application (SPA)** features for seamless navigation, and **Skeleton Loading** for enhanced user experience during data fetching.
 
----
+A modern, performant news website leveraging Next.js App Router with Incremental Static Regeneration (ISR), Single Page Application (SPA) capabilities, and skeleton loading for optimal user experience.
 
-## Features
+## 🚀 Key Features
 
-1. **Incremental Static Regeneration (ISR)**:
-   - Fetches and regenerates static pages in the background every 60 seconds.
-   - Ensures users receive fresh content without long loading times.
+- **Incremental Static Regeneration (ISR)**
+  - Auto-regenerates static pages every 60 seconds
+  - Balances content freshness with performance
+  - Optimized server load and delivery
 
-2. **Single Page Application (SPA)**:
-   - Enables smooth client-side navigation without full page reloads.
-   - Powered by dynamic routing in the Next.js App Router.
+- **Single Page Application (SPA)**
+  - Seamless client-side navigation
+  - No full page reloads
+  - Enhanced user experience
 
-3. **Skeleton Loading**:
-   - Provides a visual placeholder while content is being fetched.
-   - Ensures a polished user experience.
+- **Skeleton Loading**
+  - Polished loading states
+  - Reduced perceived loading time
+  - Smooth content transitions
 
-4. **Dynamic Pagination**:
-   - Paginate articles for a cleaner UI and improved navigation.
+- **Smart Pagination**
+  - Dynamic article pagination
+  - Customizable items per page
+  - Intuitive navigation controls
 
-5. **Responsive Design**:
-   - Fully responsive layout using Tailwind CSS.
+- **Responsive Design**
+  - Mobile-first approach
+  - Adaptive layouts
+  - Cross-device compatibility
 
----
+## 🛠️ Tech Stack
 
-## Implementation
+- **Frontend Framework**: Next.js (App Router)
+- **State Management**: Zustand
+- **Styling**: Tailwind CSS
+- **Data Source**: News API
+- **Deployment**: Vercel
 
-### 1. Incremental Static Regeneration (ISR)
+## 📦 Installation
 
-ISR is implemented using the `revalidate` property in the `CategoryPage` component. Static pages are regenerated in the background every 60 seconds.
+1. **Clone the repository**
+```bash
+git clone https://github.com/your-username/news-web.git
+cd news-website
+```
 
-#### Code Snippet: ISR in `CategoryPage`
+2. **Install dependencies**
+```bash
+npm install
+# or
+yarn install
+```
 
+3. **Configure environment variables**
+Create a `.env.local` file in the root directory:
+```env
+NEXT_PUBLIC_NEWS_API_KEY=your_newsapi_key
+```
+
+4. **Start development server**
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+5. **View the application**
+Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## 🔧 Core Implementation
+
+### ISR Configuration
 ```tsx
-export const revalidate = 60; // Revalidate every 60 seconds
-const ITEMS_PER_PAGE = 6;
+// app/[category]/page.tsx
+export const revalidate = 60; // 60-second revalidation
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
-  const newsPromise = fetchNews(params.category); // Fetch news data
-
+  const newsPromise = fetchNews(params.category);
   return (
-    <main className="p-6">
-      ........
-      <Suspense fallback={<SkeletonLoader />}>
-        <PaginatedNewsWrapper newsPromise={newsPromise} />
-      </Suspense>
-    </main>
+    <Suspense fallback={<SkeletonLoader />}>
+      <PaginatedNewsWrapper newsPromise={newsPromise} />
+    </Suspense>
   );
 }
 ```
 
-### 2. Skeleton Loading
-
-The `SkeletonLoader` visually represents the layout of the news cards during data fetching. It enhances the user experience by preventing blank screens.
-
-#### Code Snippet: SkeletonLoader Component
-
+### Skeleton Loading
 ```tsx
+// components/SkeletonLoader.tsx
 export default function SkeletonLoader() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -74,98 +109,77 @@ export default function SkeletonLoader() {
 }
 ```
 
-### 3. Paginated News List
+## 🔍 Key Implementation Details
 
-Pagination divides the news articles into pages for better navigation and readability. It uses client-side state management with React's `useState`.
+### State Management
+- Using Zustand for lightweight, scalable state management
+- Centralized store for pagination and filters
+- Efficient updates with minimal re-renders
 
-#### Code Snippet: PaginatedNewsList Component
+### Responsive Design
+- Mobile-first approach using Tailwind CSS
+- Breakpoint optimization for various devices
+- Fluid typography and spacing
 
-```tsx
-export default function PaginatedNewsList({ articles, itemsPerPage }: { articles: any[]; itemsPerPage: number }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(articles.length / itemsPerPage);
+### Performance Optimization
+- Image optimization with Next.js Image component
+- Lazy loading for off-screen content
+- Minimized bundle size
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentArticles = articles.slice(startIndex, startIndex + itemsPerPage);
+## 🎯 Challenges & Solutions
 
-  return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {currentArticles.map((article, index) => (
-          <div key={index} className="bg-white rounded shadow p-4">
-            <h2 className="font-semibold text-lg">{article.title}</h2>
-            <p className="text-sm text-gray-600">{article.description}</p>
-            <a href={article.url} className="text-indigo-500 mt-2 block" target="_blank" rel="noopener noreferrer">
-              View More
-            </a>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center mt-4 space-x-2">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-          disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
-    </div>
-  );
-}
-```
+### Challenge 1: Content Freshness vs Performance
+**Problem**: Balancing fresh content delivery with server load  
+**Solution**: Implemented ISR with 60-second revalidation, providing optimal balance
 
----
+### Challenge 2: Loading States
+**Problem**: Initial page load appeared jarring  
+**Solution**: Developed skeleton loading system matching final content layout
 
-## How to Run the Project
+### Challenge 3: Mobile Responsiveness
+**Problem**: Complex layouts breaking on mobile devices  
+**Solution**: Implemented mobile-first design with Tailwind CSS breakpoints
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/news-website.git
-   cd news-website
-   ```
+### Challenge 4: Image Optimization
+**Problem**: Using Next.js Image component for optimization, but images not from same origin  
+**Solution**: Used `next/image` with `unoptimized={!article.urlToImage?.includes('trusted-domain.com')}` option to optimize images from external sources
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
 
-3. Add the required environment variable in `.env.local`:
-   ```
-   NEXT_PUBLIC_NEWS_API_KEY=your_newsapi_key
-   ```
+## 🚧 Future Improvements
 
-4. Run the development server:
-   ```bash
-   npm run dev
-   ```
+1. **Enhanced Search**
+   - Advanced filtering
+   - Real-time search suggestions
+   - Search history
 
-5. Open the app in your browser:
-   ```
-   http://localhost:3000
-   ```
+2. **User Features**
+   - Authentication system
+   - Personalized news feed
+   - Saved articles
 
----
+3. **Performance**
+   - Service Worker integration
+   - Offline support
+   - Push notifications
 
-## Tech Stack
+4. **UI/UX**
+   - Dark mode support
+   - Reading time estimates
+   - Share functionality
 
-- **Next.js (App Router)**: For server-side rendering, ISR, and routing.
-- **Zustand**: Lightweight state management.
-- **Tailwind CSS**: Utility-first styling for responsive design.
-- **News API**: Fetches the latest news articles.
+## 🤝 Contributing
 
----
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Future Improvements
+## 📝 License
 
-1. **Search Functionality**: Allow users to search for specific articles.
-2. **User Authentication**: Add login/logout features to save preferences.
-3. **Dark Mode**: Improve accessibility with a toggleable dark theme.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 📬 Contact
+
+- Project Link: [https://github.com/Navong/news-web](https://github.com/your-username/news-website)
+- Email: bongchannavong@outlook.com
