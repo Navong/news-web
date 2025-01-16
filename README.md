@@ -126,28 +126,31 @@ export default function SkeletonLoader() {
 - Lazy loading for off-screen content
 - Minimized bundle size
 
-## 🎯 Challenges & Solutions
+## 🎯 What I Learned and How I Solved It
 
-### Challenge 1: Content Freshness vs Performance
-**Problem**: Balancing fresh content delivery with server load  
-**Solution**: Implemented ISR with 60-second revalidation, providing optimal balance
+### 1. Content Freshness vs Performance
+**What I Learned**: Balancing the delivery of fresh content with server load is crucial for maintaining both user experience and performance.  
+**How I Solved It**: I implemented Incremental Static Regeneration (ISR) with a 60-second revalidation period. This approach allowed me to deliver up-to-date content while minimizing the strain on the server by generating new pages only when necessary.
 
-### Challenge 2: Loading States
-**Problem**: Initial page load appeared jarring  
-**Solution**: Developed skeleton loading system matching final content layout
+### 2. Loading States
+**What I Learned**: A smooth loading experience is essential for improving user perception of website performance, especially on first load.  
+**How I Solved It**: I developed a skeleton loading system that mimics the final content layout. This way, users experience a consistent and less jarring loading experience.
 
-### Challenge 3: Mobile Responsiveness
-**Problem**: Complex layouts breaking on mobile devices  
-**Solution**: Implemented mobile-first design with Tailwind CSS breakpoints
+### 3. Mobile Responsiveness
+**What I Learned**: Complex layouts can easily break on mobile devices, leading to a poor user experience.  
+**How I Solved It**: I focused on a mobile-first design approach using Tailwind CSS breakpoints. This ensured that the layout adapts seamlessly to various screen sizes, enhancing the mobile user experience.
 
-### Challenge 4: Image Optimization
-**Problem**: Using Next.js Image component for optimization, but images not from same origin  
-**Solution**: Used `next/image` with `unoptimized={!article.urlToImage?.includes('trusted-domain.com')}` option to optimize images from external sources
+### 4. Image Optimization
+**What I Learned**: The Next.js Image component provides built-in optimization, but issues can arise when working with images from external sources.  
+**How I Solved It**: I used the `next/image` component with the `unoptimized` option, specifically for images from external sources. This solution allowed me to optimize images while maintaining flexibility with content origins.
 
-### Challenge 5: Mobile Responsiveness
-**Problem**: Complex layouts breaking on mobile devices  
-**Solution**: Implemented mobile-first design with Tailwind CSS breakpoints
+### 5. Mobile Responsiveness (Revisited)
+**What I Learned**: Mobile responsiveness remains a recurring challenge for websites with complex layouts and diverse content types.  
+**How I Solved It**: I continuously refined my mobile-first design strategy by leveraging Tailwind CSS breakpoints to ensure optimal responsiveness across all devices.
 
+### 6. Slow Largest Contentful Paint (LCP)
+**What I Learned**: Slow LCP can significantly affect user experience and website performance, especially for images that are slow to load.  
+**How I Solved It**: I used the `priority` attribute in the Next.js Image component to preload critical images. This allowed the images to load faster, reducing LCP and improving page load speed.
 
 ## 🚧 Future Improvements
 
