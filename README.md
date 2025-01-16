@@ -48,7 +48,7 @@ A modern, performant news website leveraging Next.js App Router with Incremental
 1. **Clone the repository**
 ```bash
 git clone https://github.com/your-username/news-web.git
-cd news-website
+cd news-web
 ```
 
 2. **Install dependencies**
